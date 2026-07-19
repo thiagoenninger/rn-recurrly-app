@@ -1,39 +1,98 @@
+import ListHeading from "@/components/ListHeading";
+import SubscriptionCard from "@/components/SubscriptionCard";
+import UpcomingSubscriptionCard from "@/components/UpcomingSubscriptionCard";
+import {
+  HOME_BALANCE,
+  HOME_SUBSCRIPTIONS,
+  HOME_USER,
+  UPCOMING_SUBSCRIPTION,
+} from "@/constants/data";
+import { icons } from "@/constants/icons";
+import images from "@/constants/images";
 import "@/global.css";
-import { Link } from "expo-router";
+import { formatCurrency, formatSubscriptionDateTime } from "@/lib/utils";
 import { StatusBar } from "expo-status-bar";
 import { styled } from "nativewind";
-import { Text } from "react-native";
+import { useState } from "react";
+import { FlatList, Image, Text, View } from "react-native";
 import { SafeAreaView as RNSafeAreaView } from "react-native-safe-area-context";
 
 const SafeAreaView = styled(RNSafeAreaView);
 
 export default function App() {
+  const [expandedSubscriptionId, setExpandedSubscriptionId] = useState<
+    string | null
+  >(null);
+
   return (
     <>
       <StatusBar style="dark" />
       <SafeAreaView className="flex-1 bg-background p-5">
-        <Text className="text-5xl font-sans-bold">Home</Text>
+        <FlatList
+          ListHeaderComponent={() => (
+            <>
+              <View className="home-header">
+                <View className="home-user">
+                  <Image source={images.avatar} className="home-avatar" />
+                  <Text className="home-user-name">{HOME_USER.name}</Text>
+                </View>
+                <Image source={icons.add} className="home-add-icon" />
+              </View>
 
-        <Link
-          href={"/onboarding"}
-          className="mt-4 font-sans-bold rounded bg-primary text-white p-4"
-        >
-          Go to Onboarding
-        </Link>
+              <View className="home-balance-card">
+                <Text className="home-balance-label">Balance</Text>
+                <View className="home-balance-row">
+                  <Text className="home-balance-amount">
+                    {formatCurrency(HOME_BALANCE.amount)}
+                  </Text>
+                  <Text className="home-balance-date">
+                    {formatSubscriptionDateTime(HOME_BALANCE.nextRenewalDate)}
+                  </Text>
+                </View>
+              </View>
 
-        <Link
-          href={"/(auth)/sign-in"}
-          className="mt-4 font-sans-bold rounded bg-primary text-white p-4"
-        >
-          Go to Sign In
-        </Link>
+              <View className="mb-5">
+                <ListHeading title="Upcoming" />
+                <FlatList
+                  data={UPCOMING_SUBSCRIPTION}
+                  renderItem={({ item }) => (
+                    <UpcomingSubscriptionCard {...item} />
+                  )}
+                  keyExtractor={(item) => item.id}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  ListEmptyComponent={
+                    <Text className="home-empty-state">
+                      No upcoming renewals yet.
+                    </Text>
+                  }
+                />
+              </View>
 
-        <Link
-          href={"/(auth)/sign-up"}
-          className="mt-4 font-sans-bold rounded bg-primary text-white p-4"
-        >
-          Go to Sign Up
-        </Link>
+              <ListHeading title="All Subscription" />
+            </>
+          )}
+          data={HOME_SUBSCRIPTIONS}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <SubscriptionCard
+              {...item}
+              expanded={expandedSubscriptionId === item.id}
+              onPress={() =>
+                setExpandedSubscriptionId((currentId) =>
+                  currentId === item.id ? null : item.id,
+                )
+              }
+            />
+          )}
+          extraData={expandedSubscriptionId}
+          ItemSeparatorComponent={() => <View className="h-4" />}
+          showsVerticalScrollIndicator={false}
+          ListEmptyComponent={
+            <Text className="home-empty-state">No subscriptions yet.</Text>
+          }
+          contentContainerClassName="pb-30"
+        />
       </SafeAreaView>
     </>
   );
