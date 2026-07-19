@@ -49,6 +49,7 @@
   .tabs-icon {
     @apply size-12 items-center justify-center;
   }
+
   .tabs-pill {
     @apply size-12 items-center justify-center rounded-full bg-transparent;
   }
@@ -82,7 +83,7 @@
   }
 
   .home-balance-card {
-    @apply my-2.5 min-h-50 justify-between gap-5 rounded-bl-4xl rounded-tr-4xl bg-accent p-6;
+    @apply my-2.5 min-h-30 justify-between gap-5 rounded-bl-4xl rounded-tr-4xl bg-accent p-6;
   }
 
   .home-balance-label {
@@ -126,7 +127,7 @@
   }
 
   .upcoming-icon {
-    @apply size-14;
+    @apply size-7;
   }
 
   .upcoming-price {
@@ -158,7 +159,7 @@
   }
 
   .sub-icon {
-    @apply size-16 rounded-lg;
+    @apply size-12 rounded-lg;
   }
 
   .sub-copy {
@@ -190,7 +191,7 @@
   }
 
   .sub-details {
-    @apply gap-6;
+    @apply gap-2;
   }
 
   .sub-row {
@@ -198,7 +199,7 @@
   }
 
   .sub-row-copy {
-    @apply min-w-0 flex-1 flex-row items-center gap-2;
+    @apply min-w-0 flex-1 flex-row items-center gap-1;
   }
 
   .sub-label {
