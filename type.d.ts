@@ -1,6 +1,26 @@
-import type { ImageSourcePropType } from "react-native";
+import type { ImageSourcePropType, KeyboardTypeOptions, TextInputProps } from "react-native";
 
 declare global {
+  interface AuthTextFieldProps {
+    label: string;
+    value: string;
+    onChangeText: (text: string) => void;
+    placeholder?: string;
+    secureTextEntry?: boolean;
+    error?: string;
+    keyboardType?: KeyboardTypeOptions;
+    autoCapitalize?: TextInputProps["autoCapitalize"];
+    autoComplete?: TextInputProps["autoComplete"];
+    editable?: boolean;
+  }
+
+  interface AuthButtonProps {
+    label: string;
+    onPress: () => void;
+    disabled?: boolean;
+    loading?: boolean;
+    variant?: "primary" | "secondary";
+  }
   interface AppTab {
     name: string;
     title: string;
