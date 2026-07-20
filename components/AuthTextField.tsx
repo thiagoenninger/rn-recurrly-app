@@ -28,6 +28,8 @@ const AuthTextField = ({
         autoCapitalize={autoCapitalize}
         autoComplete={autoComplete}
         editable={editable}
+        accessibilityLabel={label}
+        accessibilityState={{ disabled: !editable }}
       />
       {error && <Text className="auth-error">{error}</Text>}
     </View>

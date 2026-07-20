@@ -12,6 +12,7 @@ export const navigateAfterAuth = ({
 }: NavigateAfterAuthParams): void => {
   if (session?.currentTask) {
     console.warn("Unhandled Clerk session task:", session.currentTask);
+    return;
   }
 
   const url = decorateUrl("/");
