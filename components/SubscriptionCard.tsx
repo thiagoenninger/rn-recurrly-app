@@ -36,7 +36,7 @@ const SubscriptionCard = ({
             <Text numberOfLines={1} className="sub-title">
               {name}
             </Text>
-            <Text numberOfLines={1} ellipsizeMode="tail">
+            <Text numberOfLines={1} ellipsizeMode="tail" className="sub-meta">
               {category?.trim() ||
                 plan?.trim() ||
                 (renewalDate ? formatSubscriptionDateTime(renewalDate) : "")}
@@ -61,12 +61,10 @@ const SubscriptionCard = ({
                   numberOfLines={1}
                   ellipsizeMode="tail"
                 >
-                  {" "}
-                  {paymentMethod?.trim()}
+                  {paymentMethod?.trim() ?? "Not provided"}
                 </Text>
               </View>
             </View>
-
             <View className="sub-row">
               <View className="sub-row-copy">
                 <Text className="sub-label">Category:</Text>
@@ -75,11 +73,10 @@ const SubscriptionCard = ({
                   numberOfLines={1}
                   ellipsizeMode="tail"
                 >
-                  {category?.trim() || plan()?.trim()}
+                  {(category?.trim() || plan?.trim()) ?? "Not provided"}
                 </Text>
               </View>
             </View>
-
             <View className="sub-row">
               <View className="sub-row-copy">
                 <Text className="sub-label">Started:</Text>
@@ -88,11 +85,12 @@ const SubscriptionCard = ({
                   numberOfLines={1}
                   ellipsizeMode="tail"
                 >
-                  {startDate ? formatSubscriptionDateTime(startDate) : ""}
+                  {startDate
+                    ? formatSubscriptionDateTime(startDate)
+                    : "Not provided"}
                 </Text>
               </View>
             </View>
-
             <View className="sub-row">
               <View className="sub-row-copy">
                 <Text className="sub-label">Renewal date:</Text>
@@ -101,11 +99,12 @@ const SubscriptionCard = ({
                   numberOfLines={1}
                   ellipsizeMode="tail"
                 >
-                  {renewalDate ? formatSubscriptionDateTime(renewalDate) : ""}
+                  {renewalDate
+                    ? formatSubscriptionDateTime(renewalDate)
+                    : "Not provided"}
                 </Text>
               </View>
             </View>
-
             <View className="sub-row">
               <View className="sub-row-copy">
                 <Text className="sub-label">Status:</Text>
@@ -114,7 +113,7 @@ const SubscriptionCard = ({
                   numberOfLines={1}
                   ellipsizeMode="tail"
                 >
-                  {status ? formatStatusLabel(status) : ""}
+                  {status ? formatStatusLabel(status) : "Not provided"}
                 </Text>
               </View>
             </View>
@@ -124,5 +123,4 @@ const SubscriptionCard = ({
     </Pressable>
   );
 };
-
 export default SubscriptionCard;
